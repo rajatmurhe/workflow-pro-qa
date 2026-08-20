@@ -1,0 +1,34 @@
+name: QA Automation Pipeline
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Get the code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        pip install pytest pytest-playwright pytest-html
+        playwright install chromium
+
+    - name: Run Tests & Generate Report
+      run: |
+        pytest test_auth.py --html=report.html --self-contained-html
+
+    - name: Save the HTML Report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-report
+        path: report.html
