@@ -1,0 +1,15 @@
+{
+  "environments": {
+    "staging": {
+      "base_url": "https://staging.app.workflowpro.com"
+    }
+  },
+  "tenants": {
+    "company1": {
+      "admin_email": "admin@company1.com"
+    },
+    "company2": {
+      "user_email": "user@company2.com"
+    }
+  }
+}
